@@ -8,10 +8,13 @@ export const StudentSlice = createSlice({
   initialState,
   reducers: {
     createStudent: (state, action) => {
-      console.log(state, action);
+      state.students = [...state.students, action.payload];
     },
-    deleteStudent: (state) => {
-      console.log(state);
+    deleteStudent: (state, action) => {
+      const filterStudent = state.students.filter(
+        (st) => st._id != action.payload
+      );
+      state.students = [...filterStudent];
     },
   },
 });

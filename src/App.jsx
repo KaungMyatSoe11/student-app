@@ -10,11 +10,11 @@ const {students} = useSelector((state) => state.student);
 
   return (
     <>
-      {/* <StudentForm /> */}
+      <StudentForm />
       <ul>
         {students.map((st) => (
-          <li key={st._id}>{st.name}</li>
-          // <StudentC key={st._id} student={st} />
+          // <li key={st._id}>{st.name}</li>
+          <StudentC key={st._id} student={st} />
         ))}
       </ul>
     </>

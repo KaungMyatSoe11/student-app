@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useContext, useRef, useState } from "react";
-import { StudentContext } from "../context/StudentProvider";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { createStudent } from "../features/student/StudentSlice";
+// import { StudentContext } from "../context/StudentProvider";
 
 const StudentForm = () => {
-  const { createStudent } = useContext(StudentContext);
+  // const { createStudent } = useContext(StudentContext);
   const [isCreating, setIsCreating] = useState(false);
+  const dispatch = useDispatch();
 
   const refName = useRef(null);
   const refAvatar = useRef(null);
@@ -31,7 +34,8 @@ const StudentForm = () => {
     };
     const { name, major, avatar, email } = newStudent;
     if ((name, major, avatar, email)) {
-      createStudent(newStudent);
+      dispatch(createStudent(newStudent)); 
+      //dispatch({type:"",payload:newStudent})
       frmReset();
     } else {
       alert("required data");
