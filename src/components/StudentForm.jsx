@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createStudent } from "../features/student/StudentSlice";
+import { addStudent } from "../features/student/StudentSlice";
+import { createStudent } from "../api/student";
 // import { StudentContext } from "../context/StudentProvider";
 
 const StudentForm = () => {
@@ -34,7 +35,9 @@ const StudentForm = () => {
     };
     const { name, major, avatar, email } = newStudent;
     if ((name, major, avatar, email)) {
-      dispatch(createStudent(newStudent)); 
+      //api-fetch
+      // const createdStudent=await createStudent(newStudent)
+      dispatch(createStudent(newStudent));
       //dispatch({type:"",payload:newStudent})
       frmReset();
     } else {
