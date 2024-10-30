@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import StudentReducer from "../features/student/StudentSlice";
-import MajorReducer from "../features/major/MajorSlice";
+import { studentApi } from "../services/studentServices";
 
 export default configureStore({
   reducer: {
-    student: StudentReducer,
-    major: MajorReducer,
+    // student: StudentReducer,
+    // major: MajorReducer,
+    [studentApi.reducerPath]: studentApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(studentApi.middleware),
 });

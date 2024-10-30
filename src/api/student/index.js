@@ -7,6 +7,7 @@ export const createStudent = createAsyncThunk(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        key: import.meta.env.VITE_APP_API_KEY,
       },
       body: JSON.stringify(newStudent),
     });
@@ -22,7 +23,9 @@ export const fetchStudents = createAsyncThunk(
   async () => {
     const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/students`, {
       method: "GET",
-      headers: {},
+      headers: {
+        key: import.meta.env.VITE_APP_API_KEY,
+      },
     });
 
     const data = await res.json();

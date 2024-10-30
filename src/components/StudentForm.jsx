@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addStudent } from "../features/student/StudentSlice";
+import { useRef } from "react";
 import { createStudent } from "../api/student";
-// import { StudentContext } from "../context/StudentProvider";
+import { useCreateStudentMutation } from "../services/studentServices";
+import { data } from "../features/student/data";
 
 const StudentForm = () => {
   // const { createStudent } = useContext(StudentContext);
-  const [isCreating, setIsCreating] = useState(false);
-  const dispatch = useDispatch();
+  // const [isCreating, setIsCreating] = useState(false);
+  // const dispatch = useDispatch();
+  const [
+    createStudent,
+    { data, isLoading, isError },
+  ] = useCreateStudentMutation();
 
   const refName = useRef(null);
   const refAvatar = useRef(null);
@@ -25,7 +28,7 @@ const StudentForm = () => {
   const handleSubmit = async (e) => {
     console.log(e);
     e.preventDefault();
-    setIsCreating(true);
+    // setIsCreating(true);
 
     const newStudent = {
       name: refName.current.value,
@@ -37,13 +40,14 @@ const StudentForm = () => {
     if ((name, major, avatar, email)) {
       //api-fetch
       // const createdStudent=await createStudent(newStudent)
-      dispatch(createStudent(newStudent));
+      // dispatch(createStudent(newStudent));
+      await createStudent(newStudent);
       //dispatch({type:"",payload:newStudent})
       frmReset();
     } else {
       alert("required data");
     }
-    setIsCreating(false);
+    // setIsCreating(false);
   };
 
   return (
@@ -96,9 +100,9 @@ const StudentForm = () => {
         <button
           type="submit"
           className="bg-green-500 text-white py-2 px-3 rounded-lg mt-2"
-          disabled={isCreating}
+          disabled={isLoading}
         >
-          {isCreating ? "Processing" : "Add"}
+          {isLoading ? "Processing" : "Add"}
         </button>
       </form>
     </div>
